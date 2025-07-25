@@ -20,8 +20,8 @@ class CustomDeviceContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: (){
-          _openPopupMenu(context ,choice);
+        onTap: () {
+          _openPopupMenu(context, choice);
         },
         child: Container(
           height: 110,
@@ -34,7 +34,7 @@ class CustomDeviceContainer extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(image,width: 70,height: 70,),
+              Image.asset(image, width: 70, height: 70),
               SizedBox(height: 10),
               Text(
                 title,
@@ -49,13 +49,8 @@ class CustomDeviceContainer extends StatelessWidget {
   }
 }
 
-
 void _openPopupMenu(BuildContext context, int choice) {
-  List<Widget> PopUpMenuItems = [
-    SmartLight(),
-    Fan(),
-    SmartTV(),
-  ];
+  List<Widget> PopUpMenuItems = [SmartLight(), Fan(), SmartTV()];
   showModalBottomSheet(
     context: context,
     shape: RoundedRectangleBorder(
@@ -65,13 +60,13 @@ void _openPopupMenu(BuildContext context, int choice) {
     builder: (context) {
       return Container(
         padding: EdgeInsets.all(20),
-        height: 400,
+        height: 450,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
         ),
-        child: PopUpMenuItems[choice-1],
+        child: PopUpMenuItems[choice - 1],
       );
     },
   );
-  }
+}

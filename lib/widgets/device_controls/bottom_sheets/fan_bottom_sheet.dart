@@ -144,47 +144,49 @@ class _FanBottomSheetState extends State<FanBottomSheet>
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Set Timer'),
-        content: SizedBox(
-          width: 300,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: timerOptions
-                .map(
-                  (option) => ListTile(
-                    title: Text(option['label'] as String),
-                    onTap: () {
-                      setState(() {
-                        _fanState.setTimer(option['minutes'] as int);
-                      });
-                      // Save state
-                      _stateManager.saveFanState(_fanState);
-                      Navigator.pop(context);
-                    },
-                  ),
-                )
-                .toList(),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Set Timer'),
+            content: SizedBox(
+              width: 300,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children:
+                    timerOptions
+                        .map(
+                          (option) => ListTile(
+                            title: Text(option['label'] as String),
+                            onTap: () {
+                              setState(() {
+                                _fanState.setTimer(option['minutes'] as int);
+                              });
+                              // Save state
+                              _stateManager.saveFanState(_fanState);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        )
+                        .toList(),
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _fanState.clearTimer();
+                  });
+                  // Save state
+                  _stateManager.saveFanState(_fanState);
+                  Navigator.pop(context);
+                },
+                child: const Text('Clear Timer'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+            ],
           ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              setState(() {
-                _fanState.clearTimer();
-              });
-              // Save state
-              _stateManager.saveFanState(_fanState);
-              Navigator.pop(context);
-            },
-            child: const Text('Clear Timer'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-        ],
-      ),
     );
   }
 
@@ -249,9 +251,10 @@ class _FanBottomSheetState extends State<FanBottomSheet>
         height: 16,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected && isEnabled
-              ? const Color(0xFF0207FD)
-              : Colors.grey[300],
+          color:
+              isSelected && isEnabled
+                  ? const Color(0xFF0207FD)
+                  : Colors.grey[300],
         ),
       ),
     );
@@ -263,122 +266,135 @@ class _FanBottomSheetState extends State<FanBottomSheet>
       return const Center(child: CircularProgressIndicator());
     }
 
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmallScreen = screenHeight < 700;
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header with itle and toggle
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Fan',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Header with title and toggle
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Fan',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
                 ),
-              ),
-              DeviceToggleSwitch(
-                value: _fanState.isOn,
-                onChanged: _toggleFan,
-                activeColor: Colors.blue,
-                width: 40,
-                height: 40,
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 30),
-
-          // Fan Speed Options
-          Expanded(
-            flex: 2,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Fan Icons Row
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildFanSpeedOption(1),
-                      _buildFanSpeedOption(2),
-                      _buildFanSpeedOption(3),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  // Selection Circles Row
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildSelectionCircle(1),
-                      _buildSelectionCircle(2),
-                      _buildSelectionCircle(3),
-                    ],
-                  ),
-                ],
-              ),
+                DeviceToggleSwitch(
+                  value: _fanState.isOn,
+                  onChanged: _toggleFan,
+                  activeColor: Colors.blue,
+                  width: 40,
+                  height: 40,
+                ),
+              ],
             ),
-          ),
 
-          // Timer Section - Centered
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (_fanState.timerDuration != null)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        'Timer: ${_fanState.timerDuration} minutes',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  // Timer button with circular background like in the design
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withAlpha(40),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
+            SizedBox(height: isSmallScreen ? 20 : 30),
+
+            // Fan Speed Options
+            SizedBox(
+              height: isSmallScreen ? 120 : 140,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Fan Icons Row
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildFanSpeedOption(1),
+                        _buildFanSpeedOption(2),
+                        _buildFanSpeedOption(3),
                       ],
                     ),
-                    child: Material(
-                      color: Colors.transparent,
-                      shape: const CircleBorder(),
-                      child: InkWell(
-                        onTap: _fanState.isOn ? _showTimerOptions : null,
-                        customBorder: const CircleBorder(),
-                        child: Center(
-                          child: Icon(
-                            Icons.timer,
-                            size: 40,
-                            color: _fanState.isOn
-                                ? Colors.grey[700]
-                                : Colors.grey[400],
+                    SizedBox(height: isSmallScreen ? 15 : 20),
+                    // Selection Circles Row
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildSelectionCircle(1),
+                        _buildSelectionCircle(2),
+                        _buildSelectionCircle(3),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(height: isSmallScreen ? 15 : 20),
+
+            // Timer Section - Centered
+            SizedBox(
+              height: isSmallScreen ? 100 : 120,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (_fanState.timerDuration != null)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          'Timer: ${_fanState.timerDuration} minutes',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: isSmallScreen ? 12 : 14,
+                          ),
+                        ),
+                      ),
+                    // Timer button with circular background like in the design
+                    Container(
+                      width: isSmallScreen ? 60 : 80,
+                      height: isSmallScreen ? 60 : 80,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withAlpha(40),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        shape: const CircleBorder(),
+                        child: InkWell(
+                          onTap: _fanState.isOn ? _showTimerOptions : null,
+                          customBorder: const CircleBorder(),
+                          child: Center(
+                            child: Icon(
+                              Icons.timer,
+                              size: isSmallScreen ? 30 : 40,
+                              color:
+                                  _fanState.isOn
+                                      ? Colors.grey[700]
+                                      : Colors.grey[400],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+
+            // Add some bottom padding for small screens
+            if (isSmallScreen) const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }

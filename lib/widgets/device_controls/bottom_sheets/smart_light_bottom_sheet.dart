@@ -109,92 +109,105 @@ class _SmartLightBottomSheetState extends State<SmartLightBottomSheet>
       return const Center(child: CircularProgressIndicator());
     }
 
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmallScreen = screenHeight < 600;
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header with title and toggle
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Smart Light',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Header with title and toggle
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Smart Light',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
                 ),
-              ),
-              DeviceToggleSwitch(
-                value: _lightState.isOn,
-                onChanged: _toggleLight,
-                activeColor: Colors.blue,
-                width: 40,
-                height: 40,
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 30),
-
-          // Light Bulb Visualization
-          Center(
-            child: AnimatedBuilder(
-              animation: _animationController,
-              builder: (context, child) {
-                return Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _colorAnimation.value,
-                    boxShadow: _lightState.isOn
-                        ? [
-                            BoxShadow(
-                              color: Colors.blue.withAlpha(
-                                (76 + (_lightState.brightness * 127)).toInt(),
-                              ),
-                              blurRadius: 20 + (_lightState.brightness * 30),
-                              spreadRadius: 5 + (_lightState.brightness * 10),
-                            ),
-                          ]
-                        : null,
-                  ),
-                  child: Icon(
-                    Icons.lightbulb,
-                    size: 50,
-                    color: _lightState.isOn ? Colors.white : Colors.grey[400],
-                  ),
-                );
-              },
+                DeviceToggleSwitch(
+                  value: _lightState.isOn,
+                  onChanged: _toggleLight,
+                  activeColor: Colors.blue,
+                  width: 40,
+                  height: 40,
+                ),
+              ],
             ),
-          ),
 
-          const SizedBox(height: 40),
+            SizedBox(height: isSmallScreen ? 20 : 30),
 
-          // Brightness Section
-          Text(
-            'Brightness',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+            // Light Bulb Visualization
+            Center(
+              child: AnimatedBuilder(
+                animation: _animationController,
+                builder: (context, child) {
+                  return Container(
+                    width: isSmallScreen ? 60 : 80,
+                    height: isSmallScreen ? 60 : 80,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _colorAnimation.value,
+                      boxShadow:
+                          _lightState.isOn
+                              ? [
+                                BoxShadow(
+                                  color: Colors.blue.withAlpha(
+                                    (76 + (_lightState.brightness * 127))
+                                        .toInt(),
+                                  ),
+                                  blurRadius:
+                                      20 + (_lightState.brightness * 30),
+                                  spreadRadius:
+                                      5 + (_lightState.brightness * 10),
+                                ),
+                              ]
+                              : null,
+                    ),
+                    child: Icon(
+                      Icons.lightbulb,
+                      size: isSmallScreen ? 35 : 50,
+                      color: _lightState.isOn ? Colors.white : Colors.grey[400],
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
 
-          const SizedBox(height: 20),
+            SizedBox(height: isSmallScreen ? 20 : 40),
 
-          // Brightness Slider
-          BrightnessSlider(
-            value: _lightState.brightness,
-            onChanged: _updateBrightness,
-            isEnabled: _lightState.isOn,
-            activeColor: Colors.blue,
-            width: MediaQuery.of(context).size.width - 64, // Responsive width
-            height: 6,
-          ),
-        ],
+            // Brightness Section
+            Text(
+              'Brightness',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+
+            SizedBox(height: isSmallScreen ? 15 : 20),
+
+            // Brightness Slider
+            BrightnessSlider(
+              value: _lightState.brightness,
+              onChanged: _updateBrightness,
+              isEnabled: _lightState.isOn,
+              activeColor: Colors.blue,
+              width: MediaQuery.of(context).size.width - 64, // Responsive width
+              height: 6,
+            ),
+
+            // Add some bottom padding for small screens
+            if (isSmallScreen) const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

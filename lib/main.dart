@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ieee_iot/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+     const MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {
