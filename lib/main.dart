@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ieee_iot/home.dart';
+import 'package:ieee_iot/home/home.dart';
+import 'package:ieee_iot/rooms&halls/views/halls.dart';
+import 'package:ieee_iot/rooms&halls/views/rooms.dart';
 
 void main() {
   runApp(

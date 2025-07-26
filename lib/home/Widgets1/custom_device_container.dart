@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ieee_iot/Widgets1/smart_light.dart';
-import 'package:ieee_iot/Widgets1/smart_tv/smart_t_v.dart';
+import 'package:ieee_iot/home/Widgets1/smart_light.dart';
+import 'package:ieee_iot/home/Widgets1/smart_tv/smart_t_v.dart';
 
 import 'fan.dart';
 

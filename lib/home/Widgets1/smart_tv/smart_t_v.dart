@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ieee_iot/Widgets1/smart_tv/slider.dart';
+import 'package:ieee_iot/home/Widgets1/smart_tv/slider.dart';
 import 'dpad.dart';
 
 class SmartTV extends StatelessWidget {
