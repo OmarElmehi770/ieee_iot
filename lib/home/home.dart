@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../garage/bluetooth_page.dart';
+import '../garage/garage_screen.dart';
+import '../garden/screens/home_screen.dart';
 import '../rooms&halls/views/halls.dart';
 import '../rooms&halls/views/rooms.dart';
 import 'Widgets1/custom_container.dart';
@@ -14,6 +17,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool x = true;
+  bool y = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,7 +131,7 @@ class _HomeState extends State<Home> {
                   },
                   child: CustomContainer(
                     title1: 'Rooms',
-                    title2: "8 devices",
+                    title2: "3 Rooms",
                     image: 'assets/images/room1.jpg',
                   ),
                 ),
@@ -139,11 +144,14 @@ class _HomeState extends State<Home> {
                   },
                   child: CustomContainer(
                     title1: 'Halls',
-                    title2: "5 devices",
+                    title2: "2 Halls",
                     image: 'assets/images/room2.jpg',
                   ),
                 ),
                 GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => BluetoothPage()));
+                  },
                   child: CustomContainer(
                     title1: 'Garage',
                     title2: "2 Cars",
@@ -151,6 +159,9 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 GestureDetector(
+                  onTap:(){
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                  } ,
                   child: CustomContainer(
                     title1: 'Garden',
                     title2: "",

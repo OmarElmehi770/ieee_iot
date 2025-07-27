@@ -46,6 +46,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  flutter_bluetooth_serial: ^0.4.0
+  font_awesome_flutter: ^10.8.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -61,17 +63,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/images/bedroom2.png
-    - assets/images/bedroom.png
-    - assets/images/hall.png
-    - assets/images/hall2.png
-    - assets/images/living.png
-    - assets/control_icons/fan.png
-    - assets/control_icons/smart_light.png
-    - assets/control_icons/tv.png
-    - assets/control_icons/window.png
-    - assets/control_icons/power.png
-    - assets/control_icons/dot.png
+    - assets/control_icons/
+    - assets/icons/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
