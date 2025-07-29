@@ -50,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   subtitle: "Room Temperature",
                 ),
                 SizedBox(height: 60),
-
                 Center(
                   child: Wrap(
                     runSpacing: 20,
@@ -75,6 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                   ,
                 ),
+                SizedBox(height: 60),
+
               ],
             ),
           ),

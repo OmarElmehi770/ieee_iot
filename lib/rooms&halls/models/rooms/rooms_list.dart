@@ -2,7 +2,7 @@ import 'package:ieee_iot/rooms&halls/models/rooms/rooms_model.dart';
 
 List< Room> rooms = [
   Room(
-    name: 'Living Room',
+    name: ' Living Room',
     image: 'assets/images/living.png',
     devices: [
       Device(name: 'Smart Light 1', isOn: true, icon: 'assets/control_icons/smart_light.png'),

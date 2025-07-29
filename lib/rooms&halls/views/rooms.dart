@@ -54,7 +54,7 @@ class _RoomsState extends State<Rooms> {
         return RoomCard(
           img: room.image,
           txt: room.name,
-          device: '${room.devices.length} devices',
+          device: ' ${room.devices.length} devices',
           ontap: () {
             setState(() {
               selectedRoom = room;
@@ -83,7 +83,6 @@ class _RoomsState extends State<Rooms> {
           icon: device.icon,
           ontap: () {
             setState(() {
-
               device.isOn = !device.isOn;
             });
           },

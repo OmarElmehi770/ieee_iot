@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-
 import '../models/halls/halls_list.dart';
 import '../models/halls/halls_model.dart';
 import '../widgets/device_card.dart';
@@ -54,7 +53,7 @@ class _HallsState extends State<Halls> {
         return RoomCard(
           img: room.image,
           txt: room.name,
-          device: '${room.devices.length} devices',
+          device: ' ${room.devices.length} devices',
           ontap: () {
             setState(() {
               selectedHall = room;
@@ -83,7 +82,6 @@ class _HallsState extends State<Halls> {
           icon: device.icon,
           ontap: () {
             setState(() {
-
               device.isOn = !device.isOn;
             });
           },

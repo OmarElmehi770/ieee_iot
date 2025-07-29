@@ -23,7 +23,7 @@ class _CardItemWidgetState extends State<CardItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 164,
+      width: 150,
       height: 135,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

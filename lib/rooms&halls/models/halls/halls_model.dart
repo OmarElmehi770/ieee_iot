@@ -1,5 +1,3 @@
-
-
 class Device {
   String name;
   bool isOn;

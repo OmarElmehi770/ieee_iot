@@ -2,7 +2,7 @@ import 'halls_model.dart';
 
 List< Hall> halls = [
   Hall(
-    name: 'Main Hall',
+    name: ' Main Hall',
     image: 'assets/images/hall.png',
     devices: [
       Device(name: 'Smart Light 1', isOn: true, icon: 'assets/control_icons/smart_light.png'),
