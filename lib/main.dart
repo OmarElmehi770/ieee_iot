@@ -4,6 +4,8 @@ import 'package:ieee_iot/home/home.dart';
 import 'package:ieee_iot/rooms&halls/views/halls.dart';
 import 'package:ieee_iot/rooms&halls/views/rooms.dart';
 
+import 'on_boarding/splashscreen.dart';
+
 void main() {
   runApp(
      const MyApp(),
@@ -23,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: SplashScreen(),
     );
   }
 }

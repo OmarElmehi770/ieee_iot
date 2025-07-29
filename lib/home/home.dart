@@ -28,9 +28,7 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         child: Column(
           children: [
-            SizedBox(
-              height: 60,
-            ),
+            SizedBox(height: 60),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -135,6 +133,24 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+            SizedBox(height: 520),
+            ListTile(
+              title: Text(
+                'Back to connection',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              trailing: Icon(
+                Icons.bluetooth_connected,
+                size: 28,
+                color: Colors.black,
+                weight: 20,
+              ),
+              onTap: (){
+                Navigator.pop(context);
+                Navigator.pop(context);
+                },
+              //leading: Icon(Icons.arrow_back_ios_new),
+            ),
           ],
         ),
       ),
@@ -238,7 +254,10 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => Rooms()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Rooms()),
+                    );
                   },
                   child: CustomContainer(
                     title1: 'Rooms',
@@ -260,8 +279,11 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => BluetoothPage()));
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => BluetoothPage()),
+                    );
                   },
                   child: CustomContainer(
                     title1: 'Garage',
@@ -270,9 +292,12 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 GestureDetector(
-                  onTap:(){
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-                  } ,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => HomeScreen()),
+                    );
+                  },
                   child: CustomContainer(
                     title1: 'Garden',
                     title2: "",
