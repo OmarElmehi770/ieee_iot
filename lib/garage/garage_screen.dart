@@ -6,13 +6,11 @@ import 'garage_card.dart';
 class GarageScreen extends StatelessWidget {
   const GarageScreen({
     super.key,
-    required this.carsNumber,
-    required this.garageOpen,
+    required this.recieved,
     required this.sendData,
   });
-  final int carsNumber;
-  final bool garageOpen;
-  final void Function(String) sendData;
+  final String recieved;
+  final void Function(String data) sendData;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +23,9 @@ class GarageScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CarsCard(carsNumber: carsNumber),
+            CarsCard(carsNumber: 4),
             SizedBox(height: 30),
-            GarageCard(sendData: sendData, garageOpen: garageOpen),
+            GarageCard(sendData: sendData, garageOpen: true),
           ],
         ),
       ),

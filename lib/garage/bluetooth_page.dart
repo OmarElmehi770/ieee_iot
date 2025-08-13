@@ -48,10 +48,6 @@ class _BluetoothPageState extends State<BluetoothPage> {
             carsNumber += 1;
           } else if (receivedData == 'car left') {
             carsNumber -= 1;
-          } else if (receivedData == 'garage opened') {
-            garageOpen = true;
-          } else if (receivedData == 'garage closed') {
-            garageOpen = false;
           }
         });
         // print('Received: $receivedData');
@@ -76,9 +72,8 @@ class _BluetoothPageState extends State<BluetoothPage> {
   @override
   Widget build(BuildContext context) {
     return GarageScreen(
-      carsNumber: carsNumber,
-      garageOpen: garageOpen,
-      sendData: sendToArduino,
+
+      sendData: sendToArduino, recieved: '',
     );
   }
 }

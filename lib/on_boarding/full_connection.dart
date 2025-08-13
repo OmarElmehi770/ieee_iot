@@ -1,6 +1,9 @@
+import 'dart:developer';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../home/home.dart';
 
@@ -15,21 +18,52 @@ class BluetoothConnectionScreen extends StatefulWidget {
 class _BluetoothConnectionScreenState
     extends State<BluetoothConnectionScreen> with SingleTickerProviderStateMixin {
   BluetoothConnection? connection;
-  bool isConnected = false ;
+  bool isConnected = true ;
   BluetoothDevice? selectedDevice;
 
   List<BluetoothDevice> bondedDevices = [];
   List<BluetoothDiscoveryResult> availableDevices = [];
   bool isDiscovering = false;
+  String receivedMessage ='';
 
   late TabController tabController;
 
   @override
   void initState() {
     super.initState();
+    checkLocationPermission().then((_) {
+      getBondedDevices();
+      startDiscovery();
+    });
     tabController = TabController(length: 2, vsync: this);
-    getBondedDevices();
-    startDiscovery();
+  }
+  Future<void> checkLocationPermission() async {
+    // طلب إذن الـ location
+    var status = await Permission.location.request();
+
+    if (status.isDenied || status.isPermanentlyDenied) {
+      // المستخدم رفض
+      exitApp();
+    }
+  }
+
+
+  void sendData(String data) {
+    if (connection != null && connection!.isConnected) {
+      connection!.output.add(Uint8List.fromList(data.codeUnits));
+      log(data);
+      connection!.output.allSent;
+    }
+  }
+
+
+  void exitApp() {
+    if (Platform.isAndroid) {
+      // الخروج من التطبيق
+      Future.delayed(Duration(milliseconds: 100), () {
+        exit(0);
+      });
+    }
   }
 
   Future<void> getBondedDevices() async {
@@ -66,20 +100,42 @@ class _BluetoothConnectionScreenState
   Future<void> connectToDevice(BluetoothDevice device) async {
     try {
       connection = await BluetoothConnection.toAddress(device.address);
+      print('Connected to the device');
+
       setState(() {
         selectedDevice = device;
         isConnected = true;
       });
+
+      // ابدأ الاستماع للبيانات القادمة من البلوتوث
+      connection!.input!.listen((Uint8List data) {
+        String receivedData = String.fromCharCodes(data);
+        print('Data incoming: $receivedData');
+
+        // لو حابب تحفظها في واجهة المستخدم
+        setState(() {
+
+          receivedMessage=receivedData;
+        });
+
+      }).onDone(() {
+        print('Disconnected by remote request');
+        setState(() {
+          isConnected = false;
+        });
+      });
+
     } catch (e) {
       print("Error connecting: $e");
     }
   }
 
-  void sendToArduino(String message) {
-    if (connection != null && connection!.isConnected) {
-      connection!.output.add(Uint8List.fromList(message.codeUnits));
-    }
-  }
+
+  // void sendToArduino(String message) {
+  //   if (connection != null && connection!.isConnected) {
+  //     connection!.output.add(Uint8List.fromList(message.codeUnits));
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -183,7 +239,7 @@ class _BluetoothConnectionScreenState
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => Home()),
+                    MaterialPageRoute(builder: (_) => Home(recievedMessage:receivedMessage,sendData:sendData)),
                   );
                 },
                 child: const Text(

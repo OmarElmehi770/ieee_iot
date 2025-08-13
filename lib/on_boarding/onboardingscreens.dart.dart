@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'Connectionscreen.dart';
+import 'full_connection.dart';
 
 class OnboardingScreens extends StatefulWidget {
   const OnboardingScreens({super.key});
@@ -74,7 +73,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => const Connectionscreen()));
+                              builder: (_) => const BluetoothConnectionScreen()));
                     })
               ]),
           SizedBox(height: 60),

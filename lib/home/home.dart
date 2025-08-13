@@ -9,7 +9,9 @@ import 'Widgets1/custom_container.dart';
 import 'Widgets1/custom_device_container.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({super.key,required this.recievedMessage,required this.sendData});
+  final String recievedMessage;
+  final void Function (String data) sendData;
 
   @override
   State<Home> createState() => _HomeState();
@@ -282,7 +284,7 @@ class _HomeState extends State<Home> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => BluetoothPage()),
+                      MaterialPageRoute(builder: (_) => GarageScreen(recieved:widget.recievedMessage , sendData: widget.sendData)),
                     );
                   },
                   child: CustomContainer(
