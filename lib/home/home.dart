@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Welcome Home", style: TextStyle(fontSize: 16)),
+        title: Text("Welcome Home", style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
         actions: [Image.asset('assets/images/IEEE.png')],
       ),
       drawer: Drawer(

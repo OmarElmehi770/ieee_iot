@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 
 class CardItemWidget extends StatefulWidget {
-  final Icon icon;
+  final String image;
   final Icon iconDown;
   final String title;
 
   const CardItemWidget({
     super.key,
     required this.title,
-    required this.icon,
+    required this.image,
     required this.iconDown,
   });
 
@@ -24,7 +24,7 @@ class _CardItemWidgetState extends State<CardItemWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      height: 135,
+      height: 140,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: const Color(0xffD9D9D9),
@@ -36,7 +36,7 @@ class _CardItemWidgetState extends State<CardItemWidget> {
           children: [
             Row(
               children: [
-                widget.icon,
+                Image.asset(widget.image,height: 39,),
                 const Spacer(),
                 Container(
                   width: 8,
@@ -53,7 +53,6 @@ class _CardItemWidgetState extends State<CardItemWidget> {
               widget.title,
               style: const TextStyle(fontSize: 16),
             ),
-            const SizedBox(height: 8),
             IconButton(
               onPressed: () {
                 setState(() {

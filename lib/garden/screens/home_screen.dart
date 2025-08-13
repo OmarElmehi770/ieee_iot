@@ -57,18 +57,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       CardItemWidget(
                         title: 'Fan',
-                        icon: const Icon(FontAwesomeIcons.fan),
                         iconDown: const Icon(Icons.power_settings_new),
+                        image: 'assets/icons/Vector.png',
                       ),
                       CardItemWidget(
                         title: 'irrigation',
-                        icon: const Icon(Icons.water_drop),
                         iconDown: const Icon(Icons.power_settings_new),
+                        image: 'assets/icons/iconoir_watering-soil.png',
                       ),
                       CardItemWidget(
                         title: 'Smart light 1',
-                        icon:  Icon(Icons.lightbulb_outline),
                         iconDown:  Icon(Icons.power_settings_new),
+                        image: 'assets/icons/icons8_idea.png',
                       ),
                     ],
                   )

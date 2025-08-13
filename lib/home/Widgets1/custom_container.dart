@@ -39,6 +39,7 @@ class CustomContainer extends StatelessWidget {
                 ),
               ),
             ),
+            Spacer(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -66,7 +67,8 @@ class CustomContainer extends StatelessWidget {
                 Icon(Icons.arrow_forward_ios),
                 SizedBox(width: 10,)
               ],
-            )
+            ),
+            Spacer(),
           ],
         ),
       ),

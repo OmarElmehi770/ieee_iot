@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'full_connection.dart';
 import 'OnboardingScreens.dart.dart';
 import 'Connectionscreen.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
     /**************************************************************************************************** */
     if (seenOnboarding) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const Connectionscreen()));
+          context, MaterialPageRoute(builder: (_) => const BluetoothConnectionScreen()));
     }
     /*************************************************************************************************** */
 
